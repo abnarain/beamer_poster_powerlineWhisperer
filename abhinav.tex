@@ -149,21 +149,24 @@
   %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
   \blocknode{Problem Statement}%
     {
-     Digital communication enables more efficient eavesdropping as it gets easier to intercept without detection with low cost and efficient storage. 
-    \innerblock{Purpose}{Enable deniable communication between two parties in
-    close proximity in presence of a surveillance.
+     Digital communication is more vulnerable to eavesdropping as it gets easier to intercept without detection with low cost and efficient storage. 
+
+    \vspace{0.3cm}
+    \textbf{Purpose} 
+    Enable deniable communication between two parties in
+    close proximity in presence of passive monitoring. 
     \begin{center}
     \includegraphics[scale=0.85]{figures/setup.pdf} 
     \captionof{figure}{Application scenario- Powerline can be used to covertly bridge Alice and Bob on different VLANs in an
     enterprise network. Willie is an adversary interested in detecting covert communication over powerline. }
     \end{center}
-    }
 
+    \vspace{0.3cm}
     \textbf{Approach} Leverage ubiquitous power transmission infrastructure
     at our disposal and the ubiquitous presence of noise  which can be used as
     cover for physical layer covert communication. 
     \begin{center}
-    \includegraphics[scale=0.30]{figures/emi.png}
+    \includegraphics[scale=0.20]{figures/emi.png}
     \captionof{figure}{Presence of noise due to various appliances plugged in powerline}
     \end{center}
     
@@ -171,12 +174,18 @@
 
   \blocknode{Threat Model}%
   {
-    We represent a real scenario by modelling the two communicating parties
-    %Alice and Bob on channel $W_{X|Y}$ 
+    We represent a real scenario by modelling the two parties Alice and Bob, doing covert
+    communication in the presence of an adversary Willie. Alice encodes the
+    message with a secret key which decides the timeslot of transmission. The
+    message is received at Bob and Willie over the channel $W_{Y|X}$,
+    $W_{Y|Z}$ respectively. The distribution of amplitude of the encoded message
+    observed at Alice is $X$, Bob is $Y$ and at Willie is $Z$.
     \begin{center}
     \includegraphics[scale=1.5]{figures/model.pdf} 
     \captionof{figure}{Information-theoretic modeling}
     \end{center}
+
+    \vspace{0.3cm}
     \textbf{Adversary capability}
     \begin{itemize}
       \item Monitoring device to measure quadrature samples at Mains supply of
@@ -197,7 +206,12 @@
     $\alpha$, $\beta$ represent the probability of type I and type II errors.
 
     \begin{center}
-    \includegraphics[scale=0.55]{figures/noise.pdf} 
+    \includegraphics[scale=0.35]{figures/noise.pdf}     
+    \captionof{figure}{Basis of deniable communication. Distribution of
+    noise floor in presence of deniable communication(red) should
+    mimic the noise floor(blue) and have high overlap for low detec-
+    tion by adversary.}
+
     \end{center}
     
    }
@@ -218,7 +232,9 @@
       \item Pulse shape
     \end{itemize}
 
-    \innerblock{Transmission Strategy}{
+    \vspace{0.3cm}
+    \coloredbox{colorthree!80!}{
+    \textbf{Transmission Strategy}
     %\begin{algorithm}  [H]
     \begin{algorithmic}[1]
       \Procedure{Transmission Slot\textendash Selection}{}\newline
@@ -231,19 +247,16 @@
          \EndFor
          \EndProcedure
             \end{algorithmic}
-            Transmit the whole sequence of bits on the channel
+            Transmit the whole sequence of bits on the channel 
      %\end{algorithm}
-
     }
-
-    \innerblock{Transmitter and Receiver Block Chain} { 
-      PowerlineWhisperer implements various blocks in software define
-      radio (Gnuradio) for transmitter and receiver.
-
-      Transmit chain at the transmitter consists of several blocks which convert
-      the original message to waveforms on Powerline. \\ 
-      Receive chain at the receiver consists of blocks which convert the
-      signals from powerline to original message using the algorithm described. \\
+    \vspace{0.3cm}
+    \textbf{Transmitter and Receiver Block Chain}
+    \begin{itemize}
+      \item PowerlineWhisperer implements various blocks in software define
+      radio (Gnuradio) for transmitter and receiver
+      \item Receiver blocks convert the signals from powerline to original message using the algorithm described
+      \end{itemize}
     \begin{center}
     \includegraphics[scale=1.0]{figures/transmitter.pdf} 
       \captionof{figure}{Transmitter Block Chain}
@@ -252,23 +265,30 @@
     \includegraphics[scale=1.0]{figures/receiver.pdf}
       \captionof{figure}{Receiver Block Chain}
     \end{center}
-    }
-
+    
   }
   %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
 
   \blocknode{Results}%
   { 
-    We evaluate the performance of PowerlineWhisperer by measuring the
-    change in the distribution in the amplitude of quadrature sample
+    We evaluate the performance of \textit{PowerlineWhisperer} by measuring the
+    change in the distribution in the amplitude of quadrature sample   
    The three subplots show normalized histograms of the amplitude of powerline
-   channel. System operates at a frequency of 2 MHz and 100 KHz bandwidth. Channel profile a) In
-   absence of transmissions(noise). b) In the presence of covert transmissions of message of 112 bytes c) Continuous transmission of
-   pulses. The figure below demonstrate the channel conditions in extreme instances and the fact that the covert communication will resembles
-   noise profile
+   channel at two extreme situations of presence and absence of transmission.
+   Channel profile 
+   \begin{itemize}
+    \item In absence of transmissions (channel noise)
+    \item In the presence of covert transmissions of message of 112 bytes operating at 2 MHz with 100 KHz bandwidth
+    \item Continuous transmission of pulses
+    \item Scheme achieves a throughput of 28 bps. OFDM can improve the
+    throughput significantly
+    \item The scheme has a detection rate of $0.57$, which is almost as good as
+    flip of a coin
+    \end{itemize}
     \begin{center}
-    \includegraphics[scale=0.40]{figures/ncurve_53_1_05_iq.pdf}
+    \includegraphics[scale=0.50]{figures/ncurve_53_1_05_iq.pdf}
     \end{center}
+
     %\abegin{center}
     %\includegraphics[scale=0.25]{figures/roc_curve.pdf} 
     %  \captionof{figure}{ ROC curve at the adversary. This shows that a energy detector with a threshold rule is unable to distinguish

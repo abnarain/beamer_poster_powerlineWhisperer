@@ -101,7 +101,10 @@
 
 %% add your packages here
 \usepackage{hyperref}
-\usepackage{algorithm, algorithmic, algpseudocode}
+%\usepackage{algorithm}
+%\usepackage{ algorithmic}
+\usepackage{algpseudocode}
+\usepackage{caption}
 
 \title{PowerlineWhisperer}
 \author{*Abhinav Narain, Nick Feamster, Mung Chiang, *Matthieu Bloch\\
@@ -201,8 +204,8 @@
   \blocknode{System Design }% 
   {
     \innerblock{Transmission Strategy}{
-    \begin{algorithm}[H]
-        \begin{algorithmic}[1]
+    %\begin{algorithm}  [H]
+    \begin{algorithmic}[1]
       \Procedure{Transmission Slot\textendash Selection}{}\newline
        Initialize the random number generator with the secret key. Let the
        message size be $M$ in number of bits. 
@@ -214,22 +217,24 @@
          \EndProcedure
             \end{algorithmic}
             Transmit the whole sequence of bits on the channel
-     \end{algorithm}
+     %\end{algorithm}
 
     }
 
-    \innerblock{Transmitter Block Chain} { 
+    \innerblock{Transmitter and Receiver Block Chain} { 
+      PowerlineWhisperer implements various blocks in software define
+      radio (Gnuradio) for transmitter and receiver
+
       Transmit chain at the transmitter consists of several blocks which convert
-      the original message to waveforms on Powerline 
+      the original message to waveforms on Powerline \\ 
     \begin{center}
     \includegraphics[scale=1.0]{figures/transmitter.pdf} 
+      \captionof{figure}{Transmitter Block Chain}
     \end{center}
-    }
-
-    \innerblock{Reciever Block Chain}{ 
-      Receive chain at the receiver consists of 
+      Receive chain at the receiver consists of \\
     \begin{center}
     \includegraphics[scale=1.0]{figures/receiver.pdf}
+      \captionof{figure}{Receiver Block Chain}
     \end{center}
     }
 
@@ -238,21 +243,14 @@
 
   \blocknode{Results}%
   { 
-    \innerblock{}{
-      PowerlineWhisperer is built from coupler and software design radio is used for transmission of the message, as shown below 
-    \begin{center}
-    \includegraphics[scale=0.20]{figures/setup_together.png} \\
-    \end{center}
-    }
-    
     \innerblock{Adversary Performance}{
     \begin{center}
-    \includegraphics[scale=0.45]{figures/roc_curve.pdf} \\
+    \includegraphics[scale=0.25]{figures/roc_curve.pdf} 
     \end{center}
-
     \begin{center}
-    \includegraphics[scale=0.45]{figures/ncurve_53_1_05_iq.pdf}
+    \includegraphics[scale=0.25]{figures/ncurve_53_1_05_iq.pdf}
     \end{center}
+    }
   }
   %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
 

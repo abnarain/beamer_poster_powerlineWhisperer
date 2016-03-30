@@ -82,16 +82,12 @@
 % \setinnerblocktitlefillcolor{colorthree}
 
 
-
-
 %%% size of the document and the margins
 %% A0
 % \usepackage[margin=\margin cm, paperwidth=118.9cm, paperheight=84.1cm]{geometry} 
 \usepackage[margin=\margin cm, paperwidth=30in, paperheight=40in]{geometry}
 %% B1
 % \usepackage[margin=\margin cm, paperwidth=70cm, paperheight=100cm]{geometry}
-
-
 
 %% changing the fonts
 \usepackage{cmbright}
@@ -113,9 +109,7 @@
   \texttt{mchiang@princeton.edu, bloch@ece.gatech.edu}
 }
 
-
 \begin{document}
-
 %%%%% ---------- the background picture ---------- %%%%%
 %% to change it modify the macro \BackgroundPicture
 \ClearShipoutPicture
@@ -126,8 +120,6 @@
   \initializesizeandshifts
   % \setxshift{15}
   % \setyshift{2}
-
-
   %% the title block, #1 - shift, the default value is (0,0), #2 - width, #3 - scale
   %% the alias of the title block is `title', so we can refer to its boundaries later
   \ifthenelse{\equal{\template}{1}}{ 
@@ -138,17 +130,12 @@
 
   %% a logo can be added to the title block
   %% #1 - anchor relative to the title block, #2 - shift, #3 - width, #3 - file name
-  % \ifthenelse{\equal{\template}{2}}{ 
-  %   \addlogo[south west]{(2,0)}{6cm}{unibz_b.png}
-  % }{
-  %   \addlogo[south west]{(2,0)}{6cm}{unibz_w.png}
-  % }
-
-
-  %% a block node, with the specified position (optional), title and the content
-  %% #1 - where (optional), #2 - title, #3 - text
-  %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
-
+  \ifthenelse{\equal{\template}{1}}{ 
+   %  \addlogo[south east]{(2,0)}{6cm}{figures/GeorgiaTechSeal.png}
+   %  \addlogo[south west]{(2,0)}{6cm}{figures/princetonLogo.png}
+  }{
+     %\addlogo[south east]{(2,0)}{6cm}{figures/GeorgiaTechSeal.png}
+  }
 
 
   %% by default, the position of the new block node is right below the previous
@@ -156,17 +143,57 @@
   %% box is the alias of the previous block, so we can refer to its boundaries
 
   %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
-  \blocknode{Making Title}%
-  {To make title, use the standard commands \textbackslash title and
+  \blocknode{Problem Statement}%
+  {
+    \begin{center}
+    \includegraphics[scale=0.85]{figures/setup.pdf} 
+    \end{center}
 
-    \includegraphics[scale=0.85]{figures/ncurve_53_1_05_iq.pdf}
-    \includegraphics[scale=0.85]{figures/model.pdf}
+    \begin{center}
+    \includegraphics[scale=0.50]{figures/emi.png}
+    \end{center}
 
   }
-  
 
-  %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
+  \blocknode{Theoretical Framework}%
+  {
+    \begin{center}
+    \includegraphics[scale=1.0]{figures/model.pdf} 
+    \end{center}
 
+\coloredbox{colorthree!50!}{ 
+    Let the adversary use a hypothesis detector with the following two
+    hypothesis:
+    \begin{itemize}
+    \item \textbf{$H_{0}$}: Covert communication is \textit{not} happening.
+    \item \textbf{$H_{1}$}: Covert communication is  happening.
+    \end{itemize}
+
+    Willie's optimal hypothesis test yields the tradeoff $\alpha + \beta \geq 1 -
+    V(Q_{0}^{n},\hat{Q_{n}})$, where
+$V(Q_{0}^{n},\hat{Q_{n}})$ is the variational distance between the true
+distribution (that is of noise) represented by $Q_{0}^{n}$ and estimated
+distribution $\hat{Q_{n}}$, which is in the presence of
+communication.
+}
+
+
+    \begin{center}
+    \includegraphics[scale=0.85]{figures/noise.pdf} 
+    \end{center}
+
+
+\coloredbox{colorthree!50!}{ 
+Adversary capability :
+Monitoring device plugged into powerline network
+Measurement device at Mains switch of the setup.
+}
+
+
+
+
+
+  }
 
   %%%%%%%%%%%%% NEW COLUMN %%%%%%%%%%%%%%% 
   \startsecondcolumn 
@@ -174,28 +201,39 @@
   %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
   \blocknode%
   {System Design }
-  {To start the second column or the third column use commands
+  {
 
+    Transmit chain at the transmitter consists of several blocks which convert
+    the original message to waveforms on Powerline 
+    \begin{center}
+    \includegraphics[scale=1.0]{figures/transmitter.pdf} \\
+    \end{center}
+    Receive chain at the receiver consists of 
+    \begin{center}
     \includegraphics[scale=1.0]{figures/receiver.pdf}
-    \includegraphics[scale=1.0]{figures/transmitter.pdf}
+    \end{center}
+
+    \begin{center}
+    \includegraphics[scale=0.85]{figures/schematic.pdf} \\
+    \end{center}
+    \begin{center}
+    \includegraphics[scale=0.20]{figures/setup_together.png} \\
+    \end{center}
 
   }
 
+  \blocknode{Results}%
+  { 
+    \begin{center}
+    \includegraphics[scale=0.45]{figures/roc_curve.pdf} \\
+    \end{center}
+
+    \begin{center}
+    \includegraphics[scale=0.45]{figures/ncurve_53_1_05_iq.pdf}
+    \end{center}
+  }
   %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
 
-  %% to place the next node centered vertically in the second column, we can
-  %% obtain the y-coordinate of the previous node using macro
-  %% \getcurrentrow{note}, where note is the alias of the callout node, and
-  %% then specify the coordinate of the next node using coordinate (currentrow)
-  %% a plain block
-  %% #1 - rotate angle (optional), #2 - where, #3 - width, #4 - title, #5 - text
-  %%%%%%%%%% ------------------------------------------ %%%%%%%%%%
 
 \end{tikzpicture}
-
-
 \end{document}
-
-
-
-
